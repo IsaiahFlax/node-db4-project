@@ -11,12 +11,12 @@ function getShoppingList(id){
 
 function getInstructions(id){
     //return the list of instructions
-    return db('instructions').where({ recipe_id: Number(id) })
+    return db.select('step', 'instruction', 'recipe_name').from('instructions').innerJoin('recipe_names', 'recipe_names.id', 'instructions.recipe_id').where({ recipe_id: Number(id) })
 }
 
 function getIngredients(id){
-    //return the list of instructions
-    return db('ingredients').where({ id: Number(id) })
+    //all recipes in the system that utilize a single ingredient 
+    return db.select('recipe_name').from('recipes').innerJoin('recipe_names', 'recipe_names.id', 'recipes.recipe_id').where({ ingredients_id: Number(id) })
 }
 
 module.exports = {
