@@ -6,7 +6,7 @@ function getRecipes() {
 
 function getShoppingList(id){
     //return all ingredients and quantities for a given recipe
-    return db('recipes').where({ recipe_id: Number(id) })
+    return db.select('quantity', 'ingredient_name').from('recipes').innerJoin('ingredients', 'ingredients.id', 'recipes.ingredients_id').where({ recipe_id: Number(id) })
 }
 
 function getInstructions(id){
@@ -14,8 +14,14 @@ function getInstructions(id){
     return db('instructions').where({ recipe_id: Number(id) })
 }
 
+function getIngredients(id){
+    //return the list of instructions
+    return db('ingredients').where({ id: Number(id) })
+}
+
 module.exports = {
     getRecipes,
     getShoppingList,
-    getInstructions
+    getInstructions,
+    getIngredients
 }

@@ -38,12 +38,12 @@ router.get('/recipes', (req, res) => {
 
   router.get('/ingredients/:id', (req, res) => {
     const { id } = req.params
-    recipes.getInstructions(id)
+    recipes.getIngredients(id)
     .then(recipes => {
       res.json(recipes);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Failed to get shopping list' });
+      res.status(500).json({ message: 'Failed to get recipes list' });
     });
   });
 
